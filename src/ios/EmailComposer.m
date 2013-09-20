@@ -5,12 +5,13 @@
 
 - (void) showEmailComposer:(CDVInvokedUrlCommand*)command{
 
-	NSString* subject 				= [options valueForKey:@"subject"];
-	NSString* body 					= [options valueForKey:@"body"];
-	NSString* toRecipientsString 	= [options valueForKey:@"toRecipients"];
-	NSString* ccRecipientsString 	= [options valueForKey:@"ccRecipients"];
-	NSString* bccRecipientsString 	= [options valueForKey:@"bccRecipients"];
-	NSString* isHtml 				= [options valueForKey:@"isHtml"];
+	NSDictionary* parameters		= [command.arguments objectAtindex:0];
+	NSString* subject 				= [parameters valueForKey:@"subject"];
+	NSString* body 					= [parameters valueForKey:@"body"];
+	NSString* toRecipientsString 	= [parameters valueForKey:@"toRecipients"];
+	NSString* ccRecipientsString 	= [parameters valueForKey:@"ccRecipients"];
+	NSString* bccRecipientsString 	= [parameters valueForKey:@"bccRecipients"];
+	NSString* isHtml 				= [parameters valueForKey:@"isHtml"];
 	CDVPluginResult* pluginResult 	= nil;
 
     MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
