@@ -5,7 +5,7 @@
 
 - (void) showEmailComposer:(CDVInvokedUrlCommand*)command{
 
-	NSDictionary* parameters		= [command.arguments objectAtindex:0];
+	NSDictionary* parameters		= [command.arguments objectAtIndex:0];
 	NSString* subject 				= [parameters valueForKey:@"subject"];
 	NSString* body 					= [parameters valueForKey:@"body"];
 	NSString* toRecipientsString 	= [parameters valueForKey:@"toRecipients"];
