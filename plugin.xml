@@ -2,7 +2,7 @@
 
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" 
 		id="net.randymcmillan.emailcomposer" 
-		version="1.0.0">
+		version="1.2.0">
 
 	<name>Email Composer</name>
 	<description>Email Composer plugin for Cordova</description>
