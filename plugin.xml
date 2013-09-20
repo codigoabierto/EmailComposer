@@ -13,29 +13,11 @@
 	<platform name="ios">
 
 		<config-file target="config.xml" parent="/*">
-            <!-- 
-            	@name: JavaScript exec call's Service Name 
-            -->
 			<feature name="EmailComposer">
-                <!-- 
-                    @name: "ios-package" / "android-package" / etc
-                    @value: Native code Class name
-                -->
                 <param name="ios-package" value="EmailComposer" />
 			</feature>
 		</config-file>
 
-		<!--
-			@src: References a file in the plugin directory 
-			relative to this plugin.xml file
-
-			@name: Provides the last part of the module name. It can generally be 
-			whatever you like, and it only matters if you want to use 
-			cordova.require to import other parts of your plugins 
-			in your JavaScript code.
-			The module name for a <js-module> is your plugin's id 
-			followed by the value of name.
-		-->
 		<js-module src="www/EmailComposer.js" name="EmailComposer">
 			<clobbers target="emailComposer" />
 		</js-module>
