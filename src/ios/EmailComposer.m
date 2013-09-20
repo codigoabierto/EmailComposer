@@ -14,46 +14,44 @@
 	NSString* isHtml 				= [parameters valueForKey:@"isHtml"];
 	CDVPluginResult* pluginResult 	= nil;
 
-    MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
-    picker.mailComposeDelegate = self;
+    MFMailComposeViewController *mailCompose = [[MFMailComposeViewController alloc] init];
+    mailCompose.mailComposeDelegate = self;
     
 	// Set subject
 	if(subject != nil){
-		[picker setSubject:subject];
+		[mailCompose setSubject:subject];
 	}
 	// set body
 	if(body != nil){
 		if(isHtml != nil && [isHtml boolValue]){
-			[picker setMessageBody:body isHtml:YES];
+			[mailCompose setMessageBody:body isHTML:YES];
 		} else {
-			[picker setMessageBody:body isHtml:NO];
+			[mailCompose setMessageBody:body isHTML:NO];
 		}
 	}
 
 	// Set recipients
 	if(toRecipientsString != nil){
-		[picker setToRecipients:[ toRecipientsString componentsSeparatedByString:@","]];
+		[mailCompose setToRecipients:[ toRecipientsString componentsSeparatedByString:@","]];
 	}
 	if(ccRecipientsString != nil){
-		[picker setCcRecipients:[ ccRecipientsString componentsSeparatedByString:@","]]; 
+		[mailCompose setCcRecipients:[ ccRecipientsString componentsSeparatedByString:@","]]; 
 	}
 	if(bccRecipientsString != nil){
-		[picker setBccRecipients:[ bccRecipientsString componentsSeparatedByString:@","]];
+		[mailCompose setBccRecipients:[ bccRecipientsString componentsSeparatedByString:@","]];
 	}
 
     // Attach an image to the email
 	// NSString *path = [[NSBundle mainBundle] pathForResource:@"rainy" ofType:@"png"];
 	// NSData *myData = [NSData dataWithContentsOfFile:path];
-	// [picker addAttachmentData:myData mimeType:@"image/png" fileName:@"rainy"];
+	// [mailCompose addAttachmentData:myData mimeType:@"image/png" fileName:@"rainy"];
     
-    if (picker != nil) {  	
-        [self.viewController presentModalViewController:picker animated:YES];
+    if (mailCompose != nil) {  	
+        [self.viewController presentModalViewController:mailCompose animated:YES];
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"Showing email compose dialog"];
     } else {
     	pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Unable to show email compose dialog"];
     }
-
-    [picker release];
 
     // Report back to JS Interface
 	[self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
@@ -65,7 +63,6 @@
 // Dismisses the email composition interface when users tap Cancel or Send. Proceeds to update the message field with the result of the operation.
 - (void) mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {   
     
-    CDVPluginResult* pluginResult = nil;
     // Notifies users about errors associated with the interface
 	int webviewResult = 0;
 
@@ -88,15 +85,6 @@
     }
 
     [self.viewController dismissModalViewControllerAnimated:YES];
-
-    // Report back to JS Interface
-	if(webviewResult != 4){
-		pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:webviewResult];
-	} else {
-		pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"email composition completed but received no valid result"];
-	}
-
-	[self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 
 	//NSString* jsString = [[NSString alloc] initWithFormat:@"window.plugins.emailComposer._didFinishWithResult(%d);",webviewResult];
 	//[self writeJavascript:jsString];
