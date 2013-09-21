@@ -8,6 +8,7 @@
 
 #import "EmailComposer.h"
 #import <Cordova/CDV.h>
+#import <MobileCoreServices/MobileCoreServices.h>
 
 /*
 #define RETURN_CODE_EMAIL_CANCELLED 0
@@ -28,12 +29,12 @@
 	NSArray* ccRecipientsArray = [parameters objectForKey:@"ccRecipients"];
 	NSArray* bccRecipientsArray = [parameters objectForKey:@"bccRecipients"];
 	BOOL isHTML = [[parameters objectForKey:@"isHTML"] boolValue];
-	NSArray* attachmentPaths = [parameters objectoForKey:@"attachments"];
+	NSArray* attachmentPaths = [parameters objectForKey:@"attachments"];
 	int counter = 1;
 	CDVPluginResult* pluginResult = nil;
 
-    MFmailComposerViewController* mailComposer = [[MFmailComposerViewController alloc] init];
-    mailComposer.mailComposerDelegate = self;
+    MFMailComposeViewController* mailComposer = [[MFMailComposeViewController alloc] init];
+    mailComposer.mailComposeDelegate = self;
     
 	// set subject
 	if(subject){
@@ -42,9 +43,7 @@
 	// set body and isHTML
 	if(body){
 
-		if(isHTML == nil){
-			isHTML = NO;
-		}
+		// @todo validate existence of isHTML
 		[mailComposer setMessageBody:body isHTML:isHTML];
 
 	}
@@ -90,9 +89,10 @@
 
 // Dismisses the email composition interface when users tap Cancel or Send. 
 // Proceeds to update the message field with the result of the operation.
-- (void) mailComposerController:(MFmailComposerViewController*)controller didFinishWithResult:(MFmailComposerResult)result error:(NSError*)error {   
+- (void) mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
     
     // Notifies users about errors associated with the interface
+    // @todo report back to JS interface using CDVPluginResult
     /* 
 	int webviewResult = 0;
 
@@ -132,11 +132,11 @@
     }
     CFStringRef pathExtension, type;
     // Get the UTI from the file's extension
-    pathExtension = (CFStringRef)extension;
+    pathExtension = (CFStringRef)CFBridgingRetain(extension);
     type = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, pathExtension, NULL);
     
     // Converting UTI to a mime type
-   return (NSString*)UTTypeCopyPreferredTagWithClass(type, kUTTagClassMIMEType);
+   return (NSString*)CFBridgingRelease(UTTypeCopyPreferredTagWithClass(type, kUTTagClassMIMEType));
 
 }
 
