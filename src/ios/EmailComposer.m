@@ -21,16 +21,16 @@
 
 - (void) showEmailComposer:(CDVInvokedUrlCommand*)command{
 
-	NSDictionary* parameters		= [command.arguments objectAtIndex:0];
-	NSString* subject 				= [parameters objectForKey:@"subject"];
-	NSString* body 					= [parameters objectForKey:@"body"];
-	NSArray* toRecipientsArray 		= [parameters objectForKey:@"toRecipients"];
-	NSArray* ccRecipientsArray 		= [parameters objectForKey:@"ccRecipients"];
-	NSArray* bccRecipientsArray 	= [parameters objectForKey:@"bccRecipients"];
-	BOOL isHTML 					= [[parameters objectForKey:@"isHTML"] boolValue];
-	NSArray* attachmentPaths		= [parameters objectoForKey:@"attachments"];
-	int counter						= 1;
-	CDVPluginResult* pluginResult 	= nil;
+	NSDictionary* parameters = [command.arguments objectAtIndex:0];
+	NSString* subject = [parameters objectForKey:@"subject"];
+	NSString* body = [parameters objectForKey:@"body"];
+	NSArray* toRecipientsArray = [parameters objectForKey:@"toRecipients"];
+	NSArray* ccRecipientsArray = [parameters objectForKey:@"ccRecipients"];
+	NSArray* bccRecipientsArray = [parameters objectForKey:@"bccRecipients"];
+	BOOL isHTML = [[parameters objectForKey:@"isHTML"] boolValue];
+	NSArray* attachmentPaths = [parameters objectoForKey:@"attachments"];
+	int counter = 1;
+	CDVPluginResult* pluginResult = nil;
 
     MFmailComposerViewController* mailComposer = [[MFmailComposerViewController alloc] init];
     mailComposer.mailComposerDelegate = self;
