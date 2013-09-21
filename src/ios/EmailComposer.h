@@ -1,9 +1,9 @@
 //
 //  EmailComposer.h
 //
+//	Version 1.2
 //
-//  Created by Jesse MacFadyen on 10-04-05.
-//  Copyright 2010 Nitobi. All rights reserved.
+//  Created by codigoabierto on 2013/09/21
 //
 
 #import <Foundation/Foundation.h>
@@ -13,5 +13,7 @@
 @interface EmailComposer : CDVPlugin <MFMailComposeViewControllerDelegate>{}
 
 - (void) showEmailComposer:(CDVInvokedUrlCommand*)command;
+//- (void) returnWithCode:(int)code;
+- (NSString*) getMimeTypeFromFileExtension:(NSString*)extension;
 
 @end
