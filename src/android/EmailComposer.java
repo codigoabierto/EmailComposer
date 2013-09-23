@@ -18,9 +18,9 @@ import android.util.Log;
 public class EmailComposer extends CordovaPlugin {
 
     @Override
-    public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
+    public boolean execute(String action, JSONArray args, final CallbackContext callbackContext) throws JSONException {
         if (action.equals("showEmailComposer")) {
-            JSONObject parameters = args.getJSONObject(0);
+            final JSONObject parameters = args.getJSONObject(0);
             if(parameters != null){
             	cordova.getThreadPool().execute(new Runnable(){
             		public void run(){
