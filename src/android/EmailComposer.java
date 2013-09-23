@@ -42,7 +42,7 @@ public class EmailComposer extends CordovaPlugin {
 
 		boolean isHTML = false;
 		try {
-			isHTML = parameters.getBoolean("bIsHTML");
+			isHTML = parameters.getBoolean("isHTML");
 		} catch (Exception e) {
 			Log.e("EmailComposer", "Error handling isHTML param: " + e.toString());
 		}
@@ -147,7 +147,6 @@ public class EmailComposer extends CordovaPlugin {
 		this.cordova.startActivityForResult(this, emailIntent, 0);
 	}
 
-	/*
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
 		// TODO handle callback
@@ -155,6 +154,5 @@ public class EmailComposer extends CordovaPlugin {
 		Log.e("EmailComposer", "ResultCode: " + resultCode);
 		// IT DOESN'T SEEM TO HANDLE RESULT CODES
 	}
-	*/
 
 }
