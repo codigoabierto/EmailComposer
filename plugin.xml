@@ -33,7 +33,7 @@
 	<!-- android -->
 	<platform name="android">
 
-		<config-file target="config.xml" parent="/*">
+		<config-file target="res/xml/config.xml" parent="/*">
 			<feature name="EmailComposer">
                 <param name="android-package" value="net.randymcmillan.emailcomposer" />
 			</feature>
