@@ -28,7 +28,7 @@ public class EmailComposer extends CordovaPlugin {
 		            		sendEmail(parameters);	
 		            		callbackContext.success("Sent email successfully");
 		            	} catch(Exception e){
-		            		callbackContext.error("Unable to sendEmail");
+		            		callbackContext.error(e.toString());
 		            	}
 	            	}
             	});
