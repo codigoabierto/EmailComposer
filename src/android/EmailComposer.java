@@ -22,12 +22,16 @@ public class EmailComposer extends CordovaPlugin {
         if (action.equals("showEmailComposer")) {
             JSONObject parameters = args.getJSONObject(0);
             if(parameters != null){
-            	try{
-            		this.sendEmail(parameters);	
-            		callbackContext.success("Sent email successfully");
-            	} catch(Exception e){
-            		callbackContext.error("Unable to sendEmail");
-            	}
+            	cordova.getThreadPool().execute(new Runnable(){
+            		public void run(){
+		            	try{
+		            		this.sendEmail(parameters);	
+		            		callbackContext.success("Sent email successfully");
+		            	} catch(Exception e){
+		            		callbackContext.error("Unable to sendEmail");
+		            	}
+	            	}
+            	});
             }
             return true;
         }
@@ -146,7 +150,8 @@ public class EmailComposer extends CordovaPlugin {
 		}
 		*/
 
-		this.cordova.startActivityForResult(this, emailIntent, 0);
+		//this.cordova.startActivityForResult(this, emailIntent, 0);
+		this.cordova.getActivity().startActivity(emailIntent);
 	}
 
 	@Override
