@@ -77,6 +77,7 @@ public class EmailComposer extends CordovaPlugin {
 			Log.e("EmailComposer", "Error handling body param: " + e.toString());
 		}
 
+		/*
 		// setting TO recipients
 		try {
 			JSONArray toRecipients = parameters.getJSONArray("toRecipients");
@@ -143,6 +144,7 @@ public class EmailComposer extends CordovaPlugin {
 		} catch (Exception e) {
 			Log.e("EmailComposer", "Error handling attachments param: " + e.toString());
 		}
+		*/
 
 		this.cordova.startActivityForResult(this, emailIntent, 0);
 	}
