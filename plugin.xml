@@ -10,6 +10,7 @@
 	<keywords>cordova, email, e-mail</keywords>
 	<license>MIT</license>
 
+	<!-- ios -->
 	<platform name="ios">
 
 		<config-file target="config.xml" parent="/*">
@@ -28,5 +29,23 @@
 		<framework src="MessageUI.framework" />
 
 	</platform>
+
+	<!-- android -->
+	<platform name="android">
+
+		<config-file target="config.xml" parent="/*">
+			<feature name="EmailComposer">
+                <param name="android-package" value="net.randymcmillan.emailcomposer" />
+			</feature>
+		</config-file>
+
+		<js-module src="www/EmailComposer.js" name="EmailComposer">
+			<clobbers target="emailComposer" />
+		</js-module>
+
+		<source-file src="src/android/EmailComposer.java" target-dir="src/net/randymcmillan/emailcomposer" />
+
+	</platform>
+
 
 </plugin>
